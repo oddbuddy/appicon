@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Icon Generator - Create iOS, Android & Custom Icons</title>
+<meta name="description" content="Free online app icon generator. Create iOS, Android, macOS, watchOS icons in all required sizes. Export custom icon sizes with transparent backgrounds.">
+<meta name="keywords" content="app icon generator, ios icons, android icons, icon creator, app store icons">
+
+<meta property="og:title" content="Free App Icon Generator – iOS, Android, macOS Icons">
+<meta property="og:description" content="Create app icons for iOS, Android, macOS, iPad, watchOS, and PWA. Export all icon sizes instantly. Supports transparent backgrounds.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://appicon.oddbuddy.com/assets/512.png">
+<meta property="og:url" content="https://appicon.oddbuddy.com">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/16.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "App Icon Generator",
+    "description": "Free online tool to generate app icons for iOS, Android, macOS, and custom sizes.",
+    "url": "https://appicon.oddbuddy.com"
+}
+</script>
+
+<link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+<header>
+    <div class="header-content">
+            <div style="    display: flex;gap: 8px; align-items: center;">
+                <img src="./assets/64.png" alt="" style="width: 48px;height: 48px;">
+                <div>
+                    <h1> App Icon Generator</h1>
+                    <span style="">by <a href="https://oddbuddy.com" target="_blank">OddBuddy</a></span>
+                </div>
+            </div>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <span id="themeIcon">🌙</span> Toggle Theme
+        </button>
+    </div>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2 class="section-title">Upload Image</h2>
+        <div class="upload-area drag-area" id="dropArea">
+            <p>Drop image here or click to select</p>
+            <input type="file" id="upload" accept="image/*">
+        </div>
+
+        <div class="controls-grid">
+            <div class="control-group">
+                <label>Background Color</label>
+                <input type="color" id="bgColor" value="#ffffff">
+            </div>
+            
+            <div class="control-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="transparentBg">
+                    <span>Transparent Background</span>
+                </label>
+            </div>
+        </div>
+        <div class="controls-grid">
+            <div class="slider-container">
+            <label>Image Scale: <span class="scale-value" id="scaleValue">1.00</span></label>
+            <input type="range" id="scaleSlider" min="0.2" max="4" value="1" step="0.01">
+        </div>
+        <div class="control-group">
+            <label>Rotation: <span id="rotationValue">0°</span></label>
+            <input type="range" id="rotationSlider" min="-180" max="180" value="0" step="1">
+        </div>
+        </div>
+        
+
+        <canvas id="editorCanvas" width="400" height="400"></canvas>
+    </div>
+
+    <div class="card">
+        <h2 class="section-title">Select Platforms</h2>
+        <div class="platforms-grid">
+            <div class="platform-option">
+                <label class="checkbox-label">
+                    <input type="checkbox" value="ios" class="platform-check">
+                    <span>📱 iPhone</span>
+                </label>
+            </div>
+            
+            <div class="platform-option">
+                <label class="checkbox-label">
+                    <input type="checkbox" value="ipad" class="platform-check">
+                    <span>📱 iPad</span>
+                </label>
+            </div>
+            
+            <div class="platform-option">
+                <label class="checkbox-label">
+                    <input type="checkbox" value="macos" class="platform-check">
+                    <span>💻 macOS</span>
+                </label>
+            </div>
+            
+            <div class="platform-option">
+                <label class="checkbox-label">
+                    <input type="checkbox" value="android" class="platform-check">
+                    <span>🤖 Android</span>
+                </label>
+            </div>
+            
+            <div class="platform-option">
+                <label class="checkbox-label">
+                    <input type="checkbox" value="watchos" class="platform-check">
+                    <span>⌚ watchOS</span>
+                </label>
+            </div>
+            
+            <div class="platform-option">
+                <label class="checkbox-label">
+                    <input type="checkbox" value="custom" id="customCheck" class="platform-check">
+                    <span>⚙️ Custom Sizes</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="customSizes" 
+                    class="custom-sizes-input" 
+                    placeholder="e.g., 16, 32, 45, 48, 64"
+                    disabled
+                >
+            </div>
+        </div>
+
+        <div class="controls-grid">
+            <button class="generate-btn" id="generate" disabled>
+                ⚡ Generate Icons & Preview
+            </button>
+            <button class="generate-btn" style="background: green;" id="download" disabled>
+                Download ZIP
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 class="section-title">Preview</h2>
+        <div id="output"></div>
+    </div>
+</div>
+<section class="seo-section">
+    <div class="container">
+        <h2>About This App Icon Generator</h2>
+        <p>
+            This free online App Icon Generator helps developers, designers, and creators instantly generate 
+            high-quality icons for iOS, Android, macOS, iPadOS, watchOS, web apps, PWAs, and custom platforms. 
+            Simply upload an image and automatically export all required icon sizes in PNG format with optional 
+            transparent backgrounds. No software installation required—works directly in your browser.
+        </p>
+
+        <h3>Generate Icons for All Platforms</h3>
+        <ul>
+            <li><strong>iPhone iOS App Icons</strong> – iOS App Store icons, Spotlight icons, notification icons, and all required resolutions.</li>
+            <li><strong>iPad Icons</strong> – optimized for iPadOS and high-resolution Retina displays.</li>
+            <li><strong>Android App Icons</strong> – Adaptive icons, legacy icons, Play Store assets, and launcher icons.</li>
+            <li><strong>macOS Icons</strong> – app bundle icons for macOS apps.</li>
+            <li><strong>watchOS Icons</strong> – small, rounded icons for Apple Watch apps.</li>
+            <li><strong>Custom Sizes</strong> – enter any resolution (16x16, 32x32, 48x48, 256x256, etc.).</li>
+        </ul>
+
+        <h3>Features of This Icon Generator</h3>
+        <p>
+            This easy-to-use icon creator includes advanced tools such as background color selection, 
+            optional transparent background, drag-to-move positioning, image scaling, and instant live preview.  
+            You can also resize images, fill the entire icon area, or fine-tune the placement for perfect pixel alignment.
+        </p>
+        <ul>
+            <li>🟦 Upload JPG, PNG, SVG, WEBP images</li>
+            <li>🎨 Adjust image scale, position, and background color</li>
+            <li>🟢 Export icons in crisp PNG format</li>
+            <li>📦 Download everything as a ZIP file</li>
+            <li>✨ Supports transparent and colored backgrounds</li>
+        </ul>
+
+        <h3>Why Use an Online App Icon Generator?</h3>
+        <p>
+            Mobile apps and web apps require dozens of icon sizes to meet platform guidelines. 
+            Creating them manually is time-consuming and prone to errors.  
+            This generator automates the entire process—making it ideal for developers using Flutter, 
+            React Native, Swift, Kotlin, Unity, or any framework that needs accurate platform-specific assets.
+        </p>
+
+        <h3>Supported App Icon Sizes</h3>
+        <p>
+            All iOS and Android icon sizes are generated automatically, including:
+        </p>
+        <ul>
+            <li>iOS 1024×1024 App Store icon</li>
+            <li>Android 512×512 Play Store icon</li>
+            <li>Universal 1x, 2x, 3x Retina icons</li>
+            <li>Adaptive foreground and background icons</li>
+            <li>macOS 16×16 to 1024×1024 icons</li>
+        </ul>
+
+        <h3>Free, Fast & No Upload to Server</h3>
+        <p>
+            All processing is done locally in your browser using optimized JavaScript and Canvas APIs. 
+            Your images never leave your device—making this tool 100% private and secure.
+        </p>
+
+        <h3>Create Perfect App Icons in Seconds</h3>
+        <p>
+            Whether you're publishing to the **App Store**, **Google Play**, **macOS**, or building a 
+            Progressive Web App, this tool provides everything you need.  
+            Start by uploading an image and let the generator transform it into a complete icon set.
+        </p>
+    </div>
+</section>
+
+<footer class="site-footer">
+    <!-- <div class="footer-wrapper">
+
+        <div class="footer-section footer-brand">
+            <h3>🎨 App Icon Generator</h3>
+            <p>Create professional app icons for iOS, Android, macOS & web — fast, free & browser-based.</p>
+        </div>
+
+        <div class="footer-section footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">How It Works</a></li>
+                <li><a href="#">Supported Sizes</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section footer-social">
+            <h4>Social</h4>
+            <ul>
+                <li><a href="#" aria-label="Twitter">🐦 Twitter</a></li>
+                <li><a href="#" aria-label="GitHub">🐙 GitHub</a></li>
+                <li><a href="#" aria-label="YouTube">📺 YouTube</a></li>
+            </ul>
+        </div>
+    </div> -->
+
+    <div class="footer-bottom">
+        <p>© <span id="year"></span> App Icon Generator. All Rights Reserved.</p>
+        <p class="powered">⚡ Powered by <strong>OddBuddy</strong></p>
+    </div>
+</footer>
+
+<script>
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="./scripts.js"></script>
+
+</body>
+</html>
